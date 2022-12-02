@@ -1,1 +1,109 @@
 @import "reset";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.container-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 26.5rem;
+  max-width: 12.203125rem;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+.product-name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  text-transform: uppercase;
+  color: #000000;
+  text-align: center;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #000000;
+  text-align: center;
+}
+
+.product-installment {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #666666;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.btn-comprar {
+  max-height: 2.0625rem;
+  height: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  width: 100%;
+}
+
+.container-category {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 44px;
+  color: #333333;
+}
+
+footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto;
+  flex-direction: column;
+  background-color: black;
+  height: 33px;
+}
+
+footer h1 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-align: center;
+}
