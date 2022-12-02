@@ -10,8 +10,6 @@ var limitProduct = 9;
 var indexProduct = 0;
 
 
-
-
 async function fetchData<T>(url: string): Promise<T | null> {
   try {
     const response = await fetch(url);
@@ -26,11 +24,7 @@ async function fetchData<T>(url: string): Promise<T | null> {
 
 async function handleData() {
   const data = await fetchData<Product[]>("http://localhost:5000/products");
-  listenerBtnMore.addEventListener("click", () => {
-    indexProduct = indexProduct;       
-    limitProduct += 3;
-    renderProducts(data);   
-  });
+  seeMore(data)
   renderProducts(data);
   renderFilters(data);  
 }
@@ -53,8 +47,15 @@ function renderProducts(data: Product[]) {
     }   
   }  
  }
-
-
+// Mostra mais produtos
+ function seeMore(data: Product[]){
+  listenerBtnMore.addEventListener("click", () => {
+    indexProduct = indexProduct;       
+    limitProduct += 3;
+    renderProducts(data);   
+  });
+ }
+// Renderiza todas os filtros possiveis
 function renderFilters(data: Product[]) {
 //pega todas as cores
   var color: any[] | string = [];
@@ -83,14 +84,24 @@ function renderFilters(data: Product[]) {
  
 
   //renderiza filtros de tamanhos
-  for (var i = 0; i < data.length; i++) {
-    var size = data[i].size;
-    sizeProduct.innerHTML += `
+  var size : any[] | string = [];
+  //Pega a matriz de tamanhos
+  data.forEach((item) => {
+    size.push(item.size);    
+  });
+  // Converte em um unico array
+  var arraySize = size.reduce((item, sub) => item.concat(sub), [])
+  // Remove tamanhos repetidos
+  const arrayColorFilter = arraySize.filter(
+    (item: String, index: Number, arr: any[]) => arr.indexOf(item) == index
+  ); 
+  //renderiza tamanhos
+  arrayColorFilter.forEach((size: String) => {
+  sizeProduct.innerHTML += `
     <button id="button-size" type="button">${size}</button>
-    `;
-  }
-}
+    `;} 
+)}
 
-console.log(inputColor);
+
 
 document.addEventListener("DOMContentLoaded", handleData);
