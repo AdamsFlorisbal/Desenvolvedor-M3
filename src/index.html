@@ -22,11 +22,16 @@
     </section>
     <main>
       <section id="filter" class="container-filter">
-        <div class="filter-color">cor</div>
-        <div class="filter-size">tamanho</div>
+        <div class="filter-color">
+          <h1 class="title">CORES</h1>
+        </div>
+        <div class="input-filter-size-content">
+          <h1 class="title">TAMANHOS</h1>
+          <div class="filter-size"></div>
+        </div>
         <div class="container-filter-price">
           <div class="hidden" id="faixaPrecos">
-            <h1>FAIXA DE PREÇO</h1>
+            <h1 class="title">FAIXA DE PREÇO</h1>
             <div>
               <input type="radio" name="precos" id="0a50" value="50"/>
               <label for="0a50">de R$0 até R$50</label>
@@ -51,7 +56,8 @@
         </div>
       </section>
       <section class="container-product">
-        <div  id="product" class="product"></div>                
+        <div  id="product" class="product"></div>
+        <div  id="product-filter" class="product"></div>               
         <button class="btn-more">Mostrar mais</button>            
       </section>
     </main>

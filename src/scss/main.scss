@@ -1,8 +1,8 @@
 @import "reset";
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   max-width: 1500px;
   width: 100%;
   margin: 0 auto;
@@ -26,6 +26,10 @@ main {
   align-items: center;
 }
 
+.container-filter {
+  margin: 2rem 0;
+}
+
 .product {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr;
@@ -33,7 +37,7 @@ main {
   justify-content: space-between;
 }
 
-.product-list {
+.product-list, .product-list-filter{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,6 +48,11 @@ main {
   padding: 2rem;
   margin-bottom: 2.5rem;
 }
+
+.hide{
+  display: none;
+}
+
 .product-name {
   font-weight: 400;
   font-size: 14px;
@@ -76,6 +85,49 @@ main {
   background-color: #000000;
   color: #ffffff;
   width: 100%;
+}
+
+.title{
+  font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+color: #333333;
+}
+
+.content-input-filter-color {
+  display: flex;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.content-input-filter-color h1{
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.input-filter-color {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.filter-size {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  justify-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.input-filter-size {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.25rem;
+  background-color: #ffffff;
+  border-color: rgba($color: #000000, $alpha: 0.50);
+  color: rgba($color: #000000, $alpha: 0.50);
 }
 
 .container-category {

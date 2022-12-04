@@ -1,8 +1,11 @@
 import { Product } from "./Product";
 const nameProduct = document.querySelector("#product");
+const nameProductFilter = document.querySelector("#product-filter");
 const colorProduct = document.querySelector(".filter-color");
 const sizeProduct = document.querySelector(".filter-size");
 const listenerBtnMore = document.querySelector(".btn-more");
+const removeProduct = document.querySelector("product-list");
+
 var limitProduct = 9;
 var indexProduct = 0;
 
@@ -66,28 +69,43 @@ function renderFilters(data: Product[]) {
   //renderiza filtros por cor
 
   for (let i = 0; i < arrayColor.length; i++) {
-    console.log(arrayColor[i]);
     colorProduct.innerHTML += `
-    <div>  
+    <div class="content-input-filter-color">  
     <input 
-      type="radio"
-      name="color"
-      onclick=""      
+      type="checkbox"
+      name="color"      
       id="${arrayColor[i]}"      
       value="${arrayColor[i].toLowerCase()}"    
       class="input-filter-color"      
        />
-       <h1 class="teste">${arrayColor[i]}</h1>
+       <h1>${arrayColor[i]}</h1>
        </div>          
   `;
   }
+
   //captura os cliques de cor
-  var filterColor = document.querySelectorAll(".input-filter-color");
-  filterColor.forEach((input) =>
-    input.addEventListener("click", (event) => {
-      console.log(event.currentTarget.value);
+  const filterColor = document.querySelectorAll(".input-filter-color");
+  filterColor.forEach((input) =>{
+    input.addEventListener("click", (event: any) => {
+      nameProduct.classList.toggle("hide")
+      var valueFilteColor = event.currentTarget.value;
+      data.forEach((item) => {
+        if (valueFilteColor === item.color.toLocaleLowerCase()) {
+          nameProductFilter.innerHTML += ` 
+        <div class="product-list-filter">
+        <img src="${item.image}"/>
+        <h1 class="product-name">${item.name}</h1>
+        <h2 class="product-price">R$ ${item.price.toFixed(2)}</h2>
+        <h3 class="product-installment">até ${
+          data[indexProduct].parcelamento[0]
+        }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
+        <button class="btn-comprar">COMPRAR</button>
+        </div>
+        `;
+        }
+      });
     })
-  );
+  })
 
   //renderiza filtros de tamanhos
   var size: any[] | string = [];
@@ -103,17 +121,39 @@ function renderFilters(data: Product[]) {
   );
   //renderiza tamanhos
   arraySizeFilter.forEach((size: String) => {
-    sizeProduct.innerHTML += `
-    <button id="button-size" type="button">${size}</button>
+    sizeProduct.innerHTML += `    
+    <div class="content-input-filter-size">
+    <button class="input-filter-size" id="button-size" type="button">${size}</button>
+    </div>
+    
     `;
   });
   //captura os cliques de tamanhos
   const buttonSize = document.querySelectorAll("#button-size");
-  buttonSize.forEach((button) =>
-  button.addEventListener("click", (event) => {
-    console.log(event.currentTarget.innerText);
-  })
-  
+
+  buttonSize.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      var valueFilteSize = event.currentTarget.innerText;
+      data.map((item) => {        
+        item.size.map(() => {});
+        for(let i = 0; i < item.size.length; i++){
+        if (valueFilteSize == item.size[i] ) { 
+          console.log(item.size[i])         
+          nameProduct.innerHTML += `
+      <div class="product-list">
+      <img src="${item.image}"/>
+      <h1 class="product-name">${item.name}</h1>
+      <h2 class="product-price">R$ ${item.price.toFixed(2)}</h2>
+      <h3 class="product-installment">até ${
+        data[indexProduct].parcelamento[0]
+      }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
+      <button class="btn-comprar">COMPRAR</button>
+      </div>
+      `;
+        }}
+      });
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", handleData);
