@@ -1,11 +1,12 @@
 import { Product } from "./Product";
+import { Size } from "./Size";
 const nameProduct = document.querySelector("#product");
 const nameProductFilter = document.querySelector("#product-filter");
 const colorProduct = document.querySelector(".filter-color");
 const sizeProduct = document.querySelector(".filter-size");
 const listenerBtnMore = document.querySelector(".btn-more");
-const removeProduct = document.querySelector("product-list");
 
+var count = 0;
 var limitProduct = 9;
 var indexProduct = 0;
 
@@ -26,6 +27,7 @@ async function handleData() {
   seeMore(data);
   renderProducts(data);
   renderFilters(data);
+  resposiveFilter();
 }
 
 //Renderiza produtos
@@ -40,13 +42,24 @@ function renderProducts(data: Product[]) {
         <h3 class="product-installment">até ${
           data[indexProduct].parcelamento[0]
         }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
-        <button class="btn-comprar">COMPRAR</button>
+        <button class="btn-buy">COMPRAR</button>
         </div>
         `;
+      const btnBuy = document.querySelectorAll(".btn-buy");
+      btnBuy.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          count++;
+          let contadorText = document.querySelector("#count");
+          contadorText.classList.add("count");
+          contadorText.innerHTML = `${count}`;
+        });
+      });
     }
   }
 }
+
 // Mostra mais produtos
+
 function seeMore(data: Product[]) {
   listenerBtnMore.addEventListener("click", () => {
     indexProduct = indexProduct;
@@ -57,7 +70,7 @@ function seeMore(data: Product[]) {
 // Renderiza todas os filtros possiveis
 function renderFilters(data: Product[]) {
   //pega todas as cores
-  var color: any[] | string = [];
+  var color: Size | Product[] = [];
   data.forEach((item) => {
     color.push(item.color);
   });
@@ -83,11 +96,11 @@ function renderFilters(data: Product[]) {
   `;
   }
 
-  //captura os cliques de cor
+  //captura os cliques de cor e renderiza produtos filtrados
   const filterColor = document.querySelectorAll(".input-filter-color");
-  filterColor.forEach((input) =>{
+  filterColor.forEach((input) => {
     input.addEventListener("click", (event: any) => {
-      nameProduct.classList.toggle("hide")
+      nameProduct.classList.add("hide");
       var valueFilteColor = event.currentTarget.value;
       data.forEach((item) => {
         if (valueFilteColor === item.color.toLocaleLowerCase()) {
@@ -99,16 +112,25 @@ function renderFilters(data: Product[]) {
         <h3 class="product-installment">até ${
           data[indexProduct].parcelamento[0]
         }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
-        <button class="btn-comprar">COMPRAR</button>
+        <button class="btn-buy">COMPRAR</button>
         </div>
         `;
+          const btnBuy = document.querySelectorAll(".btn-buy");
+          btnBuy.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              count++;
+              let contadorText = document.querySelector("#count");
+              contadorText.classList.add("count");
+              contadorText.innerHTML = `${count}`;
+            });
+          });
         }
       });
-    })
-  })
+    });
+  });
 
   //renderiza filtros de tamanhos
-  var size: any[] | string = [];
+  var size: Size | string[] = [];
   //Pega a matriz de tamanhos
   data.forEach((item) => {
     size.push(item.size);
@@ -132,14 +154,14 @@ function renderFilters(data: Product[]) {
   const buttonSize = document.querySelectorAll("#button-size");
 
   buttonSize.forEach((button) => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", (event: any) => {
+      nameProduct.classList.add("hide");
       var valueFilteSize = event.currentTarget.innerText;
-      data.map((item) => {        
+      data.map((item) => {
         item.size.map(() => {});
-        for(let i = 0; i < item.size.length; i++){
-        if (valueFilteSize == item.size[i] ) { 
-          console.log(item.size[i])         
-          nameProduct.innerHTML += `
+        for (let i = 0; i < item.size.length; i++) {
+          if (valueFilteSize == item.size[i]) {
+            nameProductFilter.innerHTML += `
       <div class="product-list">
       <img src="${item.image}"/>
       <h1 class="product-name">${item.name}</h1>
@@ -147,12 +169,44 @@ function renderFilters(data: Product[]) {
       <h3 class="product-installment">até ${
         data[indexProduct].parcelamento[0]
       }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
-      <button class="btn-comprar">COMPRAR</button>
+      <button class="btn-buy">COMPRAR</button>
       </div>
       `;
-        }}
+            const btnBuy = document.querySelectorAll(".btn-buy");
+            btnBuy.forEach((btn) => {
+              btn.addEventListener("click", () => {
+                count++;
+                let contadorText = document.querySelector("#count");
+                contadorText.classList.add("count");
+                contadorText.innerHTML = `${count}`;
+              });
+            });
+          }
+        }
       });
     });
+  });
+}
+
+function resposiveFilter() {
+  const btnOrder: Element = document.querySelector(".responsive-order");
+  const nav: Element = document.querySelector("#nav");
+  const btnNav: Element = document.querySelector("#btn-mobile");
+  btnNav.addEventListener("click", () => {
+    nav.classList.remove("nav")    
+  });
+  btnOrder.addEventListener("click", () => {
+    nav.classList.add("nav")
+    console.log(btnOrder);
+  });
+  const btnFilter: Element = document.querySelector(".responsive-filter");
+  const filterShow: Element = document.querySelector(".container-filter");
+  const btnFilterShow: Element = document.querySelector("#btn-mobile-filter");
+  btnFilterShow.addEventListener("click", () => {
+    filterShow.classList.remove("container-filter-show")    
+  });
+  btnFilter.addEventListener("click", (event) => {
+    filterShow.classList.add("container-filter-show") 
   });
 }
 

@@ -1,4 +1,5 @@
 export interface Product {
+  toLowerCase(): unknown;
   id: string;
   name: string;
   price: number;
@@ -8,3 +9,4 @@ export interface Product {
   size: Array<string>;
   date: string;
 }
+

@@ -6,50 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desenvolvedor M3</title>
     <link rel="stylesheet" href="main.css" />
+    <script src="https://kit.fontawesome.com/749c22f311.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <nav id="nav" class="">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false"><a>ORDENAR</a>
+          <span id="hamburger">X</span>
+      </button>
+      <ul id="menu" role="menu">
+          <li class="list"><a>Mais recente</a></li>
+          <li class="list"><a>Maior preço</a></li>
+          <li class="list"><a>Menor preço</a></li>              
+      </ul>
+    </nav>
     <header>
       <img src="./img/logo-m3.png" alt="Logo m3" />
       <div class="cart">
         <img class="bag" src="./img/bag.png" alt="Carrinho" />
-        <h4 class="count">1</h4>
+        <h4 id="count" class=""></h4>
       </div>
     </header>
     <section class="container-category">
       <div class="categoty">Blusas</div>
-      <div class="order-price">categorias</div>
+      <div class="container-order-by">        
+          <select class="order-by">
+            <option value="ordenarPor" selected>Ordenar por:</option>
+            <option value="maisRecente">Mais recente</option>
+            <option value="menorPreco">Menor preço</option>
+            <option value="maiorPreco">Maior preço</option>
+          </select>    
+      </div>
     </section>
-    <main>
+    <section class="responsive-filters">
+      <div class="content-responsive">        
+        <div class="responsive-filter">
+          Filtrar
+        </div>
+        <div class="responsive-order">
+          Ordenar
+        </div>        
+      </div>
+      </section>
+      <main>
       <section id="filter" class="container-filter">
+        <button aria-label="Abrir Menu" id="btn-mobile-filter" aria-haspopup="true" aria-controls="menu" aria-expanded="false"><a>FILTRAR</a>
+          <span id="hamburger">X</span>
+      </button>
         <div class="filter-color">
           <h1 class="title">CORES</h1>
         </div>
+      
         <div class="input-filter-size-content">
           <h1 class="title">TAMANHOS</h1>
           <div class="filter-size"></div>
         </div>
         <div class="container-filter-price">
-          <div class="hidden" id="faixaPrecos">
+          <div id="faixaPrecos">
             <h1 class="title">FAIXA DE PREÇO</h1>
-            <div>
-              <input type="radio" name="precos" id="0a50" value="50"/>
+            <div class="filter-price">
+            <div class="content-input-filter-price">
+              <input type="checkbox" name="precos" id="0a50" value="50"/>
               <label for="0a50">de R$0 até R$50</label>
             </div>
-            <div>
-              <input type="radio" name="precos" id="51a150" value="150" />
+            <div class="content-input-filter-price">
+              <input type="checkbox" name="precos" id="51a150" value="150" />
               <label for="51a150">de R$50 até R$150</label>
             </div>
-            <div>
-              <input type="radio" name="precos" id="151a300" value="300" />
+            <div class="content-input-filter-price">
+              <input type="checkbox" name="precos" id="151a300" value="300" />
               <label for="151a300">de R$151 até R$300</label>
             </div>
-            <div>
-              <input type="radio" name="precos" id="301a500" value="500"/>
+            <div class="content-input-filter-price">
+              <input type="checkbox" name="precos" id="301a500" value="500"/>
               <label for="301a500">de R$301 até R$500</label>
             </div>
-            <div>
-              <input type="radio" name="precos" id="500-acima" value="501"/>
+            <div class="content-input-filter-price">
+              <input type="checkbox" name="precos" id="500-acima" value="501"/>
               <label for="500-acima">a partir de R$500</label>
             </div> 
           </div>
@@ -57,7 +90,7 @@
       </section>
       <section class="container-product">
         <div  id="product" class="product"></div>
-        <div  id="product-filter" class="product"></div>               
+        <div  id="product-filter" class="product"></div>
         <button class="btn-more">Mostrar mais</button>            
       </section>
     </main>
