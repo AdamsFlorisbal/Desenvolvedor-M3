@@ -24,27 +24,84 @@ async function fetchData<T>(url: string): Promise<T | null> {
 
 async function handleData() {
   const data = await fetchData<Product[]>("http://localhost:5000/products");
-  seeMore(data);
   renderProducts(data);
-  renderFilters(data);
+  renderFilters(data); 
   resposiveFilter();
 }
 
+//ordena os produtos
+
+const lowerPrice = document.querySelector(".lower-price")
+lowerPrice.addEventListener("click", () =>{
+  orderByPriceLow();
+})
+
+const higherPrice = document.querySelector(".higher-price")
+higherPrice.addEventListener("click", () =>{
+  orderByPriceHigh();
+})
+
+const lowerPriceDesk = document.querySelector(".lower-price-desk")
+lowerPriceDesk.addEventListener("click", () =>{
+  orderByPriceLow();
+})
+
+const higherPriceDesk = document.querySelector(".higher-price-desk")
+higherPriceDesk.addEventListener("click", () =>{
+  orderByPriceHigh();
+})
+
+
+function orderByPriceLow() {
+  const price = document.querySelectorAll("#product .product-list");
+  let product = [].map.call(price, function (element: Element) {
+    return element;
+  });  
+  product.sort(function (a: number, b: number) {
+    var ca = parseInt(a.id);
+    var cb = parseInt(b.id);
+    return  cb - ca;    // usar if para trocar o
+  });  
+  let orderProduct = document.querySelector("#product");
+  for (var i = 0; i < product.length; i++) {
+    orderProduct.appendChild(product[i]);    
+  }
+}
+function orderByPriceHigh() {
+  const price = document.querySelectorAll("#product .product-list");
+  let product = [].map.call(price, function (element: Element) {
+    return element;
+  });  
+  product.sort(function (a: number, b: number) {
+    var ca = parseInt(a.id);
+    var cb = parseInt(b.id);
+    return  ca - cb;    // usar if para trocar o
+  });  
+  let orderProduct = document.querySelector("#product");
+  for (var i = 0; i < product.length; i++) {
+    orderProduct.appendChild(product[i]);    
+  }
+}
+
 //Renderiza produtos
-function renderProducts(data: Product[]) {
-  if (data) {
-    for (indexProduct; indexProduct < limitProduct; indexProduct++) {
-      nameProduct.innerHTML += `
-        <div class="product-list">
+function renderProductsList(data: Product[]) {
+  nameProduct.innerHTML += `
+        <div id="${data[indexProduct].price}" class="product-list">
         <img src="${data[indexProduct].image}"/>
         <h1 class="product-name">${data[indexProduct].name}</h1>
-        <h2 class="product-price">R$ ${data[indexProduct].price.toFixed(2)}</h2>
+        <div  class="product-price">R$ ${data[indexProduct].price.toFixed(2)}</div>
         <h3 class="product-installment">até ${
           data[indexProduct].parcelamento[0]
         }x de R$${data[indexProduct].parcelamento[1].toFixed(2)}</h3>
         <button class="btn-buy">COMPRAR</button>
         </div>
         `;
+}
+
+function renderProducts(data: Product[]) {
+  if (data) {
+    for (indexProduct; indexProduct < limitProduct; indexProduct++) {
+      renderProductsList(data);
       const btnBuy = document.querySelectorAll(".btn-buy");
       btnBuy.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -55,6 +112,7 @@ function renderProducts(data: Product[]) {
         });
       });
     }
+    seeMore(data);
   }
 }
 
@@ -186,28 +244,74 @@ function renderFilters(data: Product[]) {
       });
     });
   });
+  //renderiza filtros de preço
+  const inputPrecos = document.querySelectorAll('input[name="precos"]');
+  inputPrecos.forEach((element: any) => {
+    element.addEventListener("click", () => {
+      let value: number = element.value;
+      let prices: number = data[indexProduct].price;
+      console.log(Number(element.value));
+      console.log(Number(prices));
+      if (value == 50 && prices <= 100) {
+        console.log(Number(prices));
+        renderProducts(data);
+      } else if (value == 150 && prices <= 150 && prices > 50) {
+        renderProducts(data);
+      } else if (value == 300 && prices <= 300 && prices > 150) {
+        renderProducts(data);
+      } else if (value == 500 && prices <= 500 && prices > 300) {
+        renderProducts(data);
+      } else if (value == 501 && prices > 500) {
+        renderProducts(data);
+      }
+    });
+  });
 }
 
+//Abre e fecha menus quando está com tela menor que 780px
 function resposiveFilter() {
   const btnOrder: Element = document.querySelector(".responsive-order");
   const nav: Element = document.querySelector("#nav");
   const btnNav: Element = document.querySelector("#btn-mobile");
   btnNav.addEventListener("click", () => {
-    nav.classList.remove("nav")    
+    nav.classList.remove("nav");
   });
   btnOrder.addEventListener("click", () => {
-    nav.classList.add("nav")
-    console.log(btnOrder);
+    nav.classList.add("nav");
   });
   const btnFilter: Element = document.querySelector(".responsive-filter");
   const filterShow: Element = document.querySelector(".container-filter");
   const btnFilterShow: Element = document.querySelector("#btn-mobile-filter");
   btnFilterShow.addEventListener("click", () => {
-    filterShow.classList.remove("container-filter-show")    
+    filterShow.classList.remove("container-filter-show");
   });
-  btnFilter.addEventListener("click", (event) => {
-    filterShow.classList.add("container-filter-show") 
+  btnFilter.addEventListener("click", () => {
+    filterShow.classList.add("container-filter-show");
   });
 }
+
+const btnNav = document.querySelector("#btn-desk");
+const ulNav = document.querySelector("#menu-desk");
+btnNav.addEventListener("click", () => {
+  ulNav.classList.toggle("nav-ul");
+});
+
+const color = document.querySelector(".color");
+const colorNone = document.querySelector(".filter-color");
+const sizeNone = document.querySelector(".container-filter-size");
+const colorPrice = document.querySelector(".filter-price");
+color.addEventListener("click", () => {
+  colorNone.classList.toggle("nav-ul");
+});
+const size = document.querySelector(".size");
+
+size.addEventListener("click", () => {
+  sizeNone.classList.toggle("nav-ul");
+});
+const price = document.querySelector(".price");
+
+price.addEventListener("click", () => {
+  colorPrice.classList.toggle("nav-ul");
+});
 
 document.addEventListener("DOMContentLoaded", handleData);

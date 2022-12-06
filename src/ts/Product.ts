@@ -3,6 +3,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  priceArr: Array<string>;
   parcelamento: Array<number>;
   color: string;
   image: string;
